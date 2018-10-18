@@ -38,15 +38,13 @@ testing_features = imputer.transform(x_[x_['TRAIN'] == 0].values)
 
 # Average CV score on the training set was:-580352114.3134693
 parameters = {
-        'alpha': [0.8, 0.9, 0.95, 0.99],
-        'learning_rate': [0.001, 0.01, 0.1, 0.25],
+        'alpha': [0.99],
+        'learning_rate': [0.01, 0.1, 0.25],
         'loss': ['ls'],
-        'max_depth': [3, 6, 12, 24, 48],
-        'max_features': ['auto', 'sqrt', 'log2', None ],
-        'min_samples_leaf': [1,2,4,8,16],
-        'min_samples_split': [12, 17, 21, 31],
-        'n_estimators': [100, 500, 1000, 2000 ],
-        'subsample': [0.1, 0.5, 1.0] }
+        'max_depth': [6, 24, 48],
+        'max_features': ['auto', 'sqrt', 'log2' ],
+        'n_estimators': [100, 500, 1000 ],
+        'subsample': [ 0.75, 1.0] }
 clf = GridSearchCV(GradientBoostingRegressor(), parameters, verbose = 2)
 exported_pipeline = make_pipeline(
     SelectPercentile(score_func=f_regression, percentile=91),
