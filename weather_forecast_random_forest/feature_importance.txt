@@ -1,0 +1,17 @@
+max_temp_1d_prior ; 0.66
+average ; 0.15
+forecast_noaa ; 0.05
+forecast_acc ; 0.03
+day ; 0.02
+max_temp_2d_prior ; 0.02
+forecast_under ; 0.02
+friend ; 0.02
+month ; 0.01
+year ; 0.0
+week_Fri ; 0.0
+week_Mon ; 0.0
+week_Sat ; 0.0
+week_Sun ; 0.0
+week_Thurs ; 0.0
+week_Tues ; 0.0
+week_Wed ; 0.0
