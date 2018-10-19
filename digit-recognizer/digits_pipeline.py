@@ -1,24 +1,34 @@
-import numpy as np
+
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split
+
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import Normalizer
+from sklearn.model_selection import GridSearchCV
 
 # NOTE: Make sure that the class is labeled 'target' in the data file
-tpot_data = pd.read_csv('PATH/TO/DATA/FILE', sep='COLUMN_SEPARATOR', dtype=np.float64)
-features = tpot_data.drop('target', axis=1).values
-training_features, testing_features, training_target, testing_target = \
-            train_test_split(features, tpot_data['target'].values, random_state=None)
+df_train = pd.read_csv('train.csv')
+y = df_train['label']
+x = df_train.drop('label', axis = 1)
+
+
+parameters = {
+    'penalty': ['l1', 'l2'],
+    'C': [0.1, 0.5, 1, 2],
+    'dual': [True, False]
+}
+
+
+clf = GridSearchCV(LogisticRegression(), parameters, verbose=2)
 
 # Average CV score on the training set was:0.9129525477957177
 exported_pipeline = make_pipeline(
     Normalizer(norm="max"),
-    LogisticRegression(C=0.5, dual=True, penalty="l2")
+    clf
 )
 
-exported_pipeline.fit(training_features, training_target)
 
+exported_pipeline.fit(x.values,y.values)
 x_pred = pd.read_csv('test.csv')
 y_pred = exported_pipeline.predict(x_pred.values)
 id_axis = range(1,x_pred.shape[0]+1)
