@@ -4,7 +4,9 @@
 from keras.models import Sequential
 from keras.layers import Dense, Activation
 import pandas as pd
+from keras.utils import to_categorical
 import numpy as np
+import code
 # prepare keras
 model = Sequential([
     Dense(32, input_shape=(784,)),
@@ -18,13 +20,15 @@ model.compile(optimizer='rmsprop',
               metrics=['accuracy'])
 # read the data
 df_train = pd.read_csv('train.csv')
-y = np.array(df_train['label'].values)
+y = to_categorical(df_train['label'].values)
 x = np.array(df_train.drop('label', axis = 1))
 # do the thing
+#code.interact(local=locals())
 model.fit(x, y, epochs=10)#, batch_size=32)
 
 x_pred = np.array(pd.read_csv('test.csv'))
-y_pred = model.predict(x_pred.values)
+y_pred = model.predict(x_pred)
+y_pred = [np.argmax(y, axis=None, out=None) for y in y_pred]
 id_axis = range(1,x_pred.shape[0]+1)
 subfile = open('submission_keras.csv', 'w')
 subfile.write('ImageId,Label\n')

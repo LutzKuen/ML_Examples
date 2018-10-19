@@ -13,7 +13,7 @@ x = df_train.drop('label', axis = 1)
 
 
 parameters = {
-    'penalty': ['l1', 'l2'],
+    'penalty': ['l2'],
     'C': [0.1, 0.5, 1, 2],
     'dual': [True, False]
 }
