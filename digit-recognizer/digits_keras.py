@@ -24,7 +24,7 @@ y = to_categorical(df_train['label'].values)
 x = np.array(df_train.drop('label', axis = 1))
 # do the thing
 #code.interact(local=locals())
-model.fit(x, y, epochs=10)#, batch_size=32)
+model.fit(x, y, epochs=1000)#, batch_size=32)
 
 x_pred = np.array(pd.read_csv('test.csv'))
 y_pred = model.predict(x_pred)
